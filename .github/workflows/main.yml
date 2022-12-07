@@ -19,10 +19,14 @@ jobs:
           dotnet-version: 6.0.x
       - name: dotnet publish
         run: "dotnet publish -c Release"
-      - name: Rename the release file 
-        run: mv bin/Release/net6.0/win10-x64/publish/targz-helper.exe targz-helper-${{ inputs.suffix }}.exe
+      - name: Archive the release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: zip
+          directory: bin/Release/net6.0/win-x64/publish
+          filename: targz-helper-${{ inputs.suffix }}.zip
       - name: Upload Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: targz-helper-${{ inputs.suffix }}.exe
+          artifacts: bin/Release/net6.0/win-x64/publish/targz-helper-${{ inputs.suffix }}.zip
           tag: ${{ inputs.suffix }}
