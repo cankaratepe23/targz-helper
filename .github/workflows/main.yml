@@ -24,9 +24,10 @@ jobs:
         with:
           type: zip
           directory: bin/Release/net6.0/win-x64/publish
+          path: targz-helper.exe
           filename: targz-helper-${{ inputs.suffix }}.zip
       - name: Upload Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: bin/Release/net6.0/win-x64/publish/targz-helper-${{ inputs.suffix }}.zip
+          artifacts: bin/Release/net6.0/win10-x64/publish/targz-helper-${{ inputs.suffix }}.zip
           tag: ${{ inputs.suffix }}
