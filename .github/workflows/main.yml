@@ -23,7 +23,7 @@ jobs:
         uses: thedoctor0/zip-release@main
         with:
           type: zip
-          directory: bin/Release/net6.0/win-x64/publish
+          directory: bin/Release/net6.0/win10-x64/publish
           path: targz-helper.exe
           filename: targz-helper-${{ inputs.suffix }}.zip
       - name: Upload Release
