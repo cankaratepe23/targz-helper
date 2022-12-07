@@ -1,0 +1,34 @@
+---
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      suffix:
+        description: 'Release suffix'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Initialize Actions
+        uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: dotnet publish
+        run: "dotnet publish -c Release"
+      - name: Archive the release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: zip
+          directory: bin/Release/net6.0-windows/win10-x64/publish
+          filename: targz-helper-${{ inputs.suffix }}.zip
+      - name: Rename the release file 
+        run: mv bin/Release/net6.0-windows/win10-x64/publish/targz-helper.exe targz-helper-${{ inputs.suffix }}.exe
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: targz-helper-${{ inputs.suffix }}.exe
+          tag: ${{ inputs.suffix }}
