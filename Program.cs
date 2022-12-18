@@ -162,4 +162,5 @@ using (var tarArchive = TarArchive.CreateOutputTarArchive(gzipStream))
     }
 }
 
+Console.WriteLine("Done! Press enter or simply close this window to continue.");
 Console.ReadLine();
