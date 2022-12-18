@@ -35,7 +35,6 @@ if (!File.Exists(configFilePath))
         {
             "^.*\\.py$",
             "^.*\\.txt$",
-            "^.*\\.csv$",
             "^configuration_info.xml$",
             "^scope.xml$",
             "^fallback/configuration_info.xml$",
@@ -154,11 +153,10 @@ using (var fs = new FileStream(Path.Combine(workingDir, tarGzFilename), FileMode
 using (Stream gzipStream = new GZipOutputStream(fs))
 using (var tarArchive = TarArchive.CreateOutputTarArchive(gzipStream))
 {
-    foreach (string filename in selectedFiles)
+    foreach (var filename in selectedFiles)
     {
         {
-            // TODO: This is sample code from the internet, fix this
-            TarEntry tarEntry = TarEntry.CreateEntryFromFile(filename);
+            var tarEntry = TarEntry.CreateEntryFromFile(filename);
             tarArchive.WriteEntry(tarEntry, false);
         }
     }
